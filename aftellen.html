@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>SaplimgX | Sinds</title>
+    <title>SaplimgX | Yvo Geboorte</title>
     <link href="images/Favicon.png" rel="image">
     <link href="images/Favicon.png" rel="icon">
     <link rel="stylesheet" href="styles.css">
@@ -33,19 +33,36 @@
     <div id="countup"></div>
 
     <script>
-        const startDate = new Date('2024-01-25T00:00:00').getTime();
+        const startDate = new Date('2024-01-25T00:00:00');
 
         function updateCountup() {
-            const currentDate = new Date().getTime();
-            const timePassed = currentDate - startDate;
+            const now = new Date();
 
-            const days = Math.floor(timePassed / (1000 * 60 * 60 * 24));
+            // Bereken verschil in jaren, maanden, dagen
+            let years = now.getFullYear() - startDate.getFullYear();
+            let months = now.getMonth() - startDate.getMonth();
+            let days = now.getDate() - startDate.getDate();
+
+            if (days < 0) {
+                months--;
+                const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+                days += prevMonth;
+            }
+
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            // Bereken ook uren, minuten en seconden via tijdverschil
+            const timePassed = now.getTime() - startDate.getTime();
             const hours = Math.floor((timePassed % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((timePassed % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((timePassed % (1000 * 60)) / 1000);
 
             document.getElementById('countup').innerHTML = `
-                ${days} dagen, ${hours} uur, ${minutes} minuten en ${seconds} seconden.`;
+                ${years} jaar, ${months} maanden, ${days} dagen, 
+                ${hours} uur, ${minutes} minuten en ${seconds} seconden.`;
         }
 
         updateCountup(); // meteen tonen bij laden
