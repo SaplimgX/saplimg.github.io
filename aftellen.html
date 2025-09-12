@@ -1,62 +1,55 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Automatisch Vernieuwende Timer Sinds 20 Januari 2024</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin: 50px;
-    }
-  </style>
+    <title>SaplimgX | Sinds</title>
+    <link href="images/Favicon.png" rel="image">
+    <link href="images/Favicon.png" rel="icon">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            text-align: center;
+            background-color: #f3f3f3;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        #countup {
+            font-size: 28px;
+        }
+    </style>
 </head>
-<body>
+<body background="images/aftellen.png">
+    <h1>Sinds 25 januari 2024 zijn er verstreken:</h1>
+    <div id="countup"></div>
 
-  <h1>Tijd Sinds 20 Januari 2024</h1>
-  <p id="timeSince"></p>
+    <script>
+        const startDate = new Date('2024-01-25T00:00:00').getTime();
 
-  <script>
-    function updateTime() {
-      // Datum van 20 januari 2024
-      var targetDate = new Date('2024-01-20T00:00:00');
+        function updateCountup() {
+            const currentDate = new Date().getTime();
+            const timePassed = currentDate - startDate;
 
-      // Huidige datum
-      var currentDate = new Date();
+            const days = Math.floor(timePassed / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timePassed % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timePassed % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timePassed % (1000 * 60)) / 1000);
 
-      // Bereken het verschil in tijd
-      var timeDifference = currentDate - targetDate;
+            document.getElementById('countup').innerHTML = `
+                ${days} dagen, ${hours} uur, ${minutes} minuten en ${seconds} seconden.`;
+        }
 
-      // Bereken de verschillende eenheden
-      var years = Math.floor(timeDifference / (1000 * 60 * 60 * 24 * 365));
-      var months = Math.floor((timeDifference % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24 * 30.44));
-      var weeks = Math.floor((timeDifference % (1000 * 60 * 60 * 24 * 30.44)) / (1000 * 60 * 60 * 24 * 7));
-      var days = Math.floor((timeDifference % (1000 * 60 * 60 * 24 * 7)) / (1000 * 60 * 60 * 24));
-      var hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      var minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-      var seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
-
-      // Bouw de tekst op basis van de eenheden
-      var timeText = 'Sinds 20 januari 2024 zijn er verstreken:';
-      timeText += years > 0 ? ' ' + years + ' jaar,' : '';
-      timeText += months > 0 ? ' ' + months + ' maanden,' : '';
-      timeText += weeks > 0 ? ' ' + weeks + ' weken,' : '';
-      timeText += days > 0 ? ' ' + days + ' dagen,' : '';
-      timeText += hours > 0 ? ' ' + hours + ' uur,' : '';
-      timeText += minutes > 0 ? ' ' + minutes + ' minuten,' : '';
-      timeText += seconds > 0 ? ' ' + seconds + ' seconden.' : '';
-
-      // Toon het resultaat op de webpagina
-      document.getElementById('timeSince').textContent = timeText;
-    }
-
-    // Roep updateTime functie aan bij het laden van de pagina
-    updateTime();
-
-    // Vernieuw de timer elke seconde (1000 milliseconden)
-    setInterval(updateTime, 1000);
-  </script>
-
+        updateCountup(); // meteen tonen bij laden
+        setInterval(updateCountup, 1000); // elke seconde updaten
+    </script>
 </body>
 </html>
